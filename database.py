@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 # DIRECT CONNECTION APPROACH (Bypassing getenv since we don't use .env in production)
-DATABASE_URL = "postgresql://postgres.submqiozqwxirkztzpaz:DhineshVP@1213@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
+DATABASE_URL = "postgresql://postgres.submqiozqwxirkztzpaz:DhineshVP%401213@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
 
 # Driver string standardization formatting for SQLAlchemy compatibility
 if DATABASE_URL.startswith("postgres://"):
