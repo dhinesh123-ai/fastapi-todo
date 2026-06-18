@@ -5,10 +5,10 @@ import os
 
 load_dotenv()
 
-# Completely bypass target variable extraction. Direct injection of Cloud Postgres DB
-DATABASE_URL = "postgresql://dhinesh:kxZuocCBPvRiLF7juAuv8Mw5BBFPLOht@dpg-d8mpta7lk1mc7390aq3g-a.singapore-postgres.render.com/tododb_j0ds"
+# DIRECT CONNECTION APPROACH (Bypassing getenv since we don't use .env in production)
+DATABASE_URL = "postgresql://postgres.submqiozqwxirkztzpaz:DhineshVP@1213@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
 
-# Driver string standardization formatting
+# Driver string standardization formatting for SQLAlchemy compatibility
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
