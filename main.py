@@ -1,10 +1,28 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware  # Import the CORS middleware
 from schemas import Todo as TodoSchema, TodoCreate
 from sqlalchemy.orm import Session
 from database import SessionLocal, Base, engine
 from models import Todo
+
 Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
+
+# Configure CORS Origins
+origins = [
+    "http://localhost:5173",  # Allows your local React/Vite dev server
+    # "https://your-production-frontend.vercel.app"  # Add your production frontend URL here later if you deploy it
+]
+
+# Add CORS middleware to the app
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,       # Controls which origins can access the API
+    allow_credentials=True,
+    allow_methods=["*"],         # Allows GET, POST, PUT, DELETE, etc.
+    allow_headers=["*"],         # Allows all standard and custom request headers
+)
 
 # Dependency for DB session
 def get_db():
@@ -14,7 +32,7 @@ def get_db():
     finally:
         db.close()
 
-# POST -create todo 
+# POST - create todo 
 @app.post("/todos", response_model=TodoSchema)
 def create(todo: TodoCreate, db: Session = Depends(get_db)):
     db_todo = Todo(**todo.dict())
